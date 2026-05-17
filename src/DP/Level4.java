@@ -281,6 +281,35 @@ public class Level4 {
         return dp[n] = max;
     }
 
+    public int integerBreak(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        int max = 1;
+        int next = 0;
+        for (int i = 1; i <= n; i++) {
+            next = i * integerBreak(n - i);
+            max = Math.max(max, next);
+        }
+        return max;
+    }
+
+    int countWays(int i, int amount, int[] coins, int[][] dp) {
+        if (amount == 0) return 1;
+        if (i >= coins.length) return 0;  // ✅ removed amount < 0 (unreachable)
+
+        if (dp[i][amount] != -1) return dp[i][amount];  // ✅ check cache
+
+        int pick = 0;
+        if (coins[i] <= amount) {
+            pick = countWays(i, amount - coins[i], coins, dp);
+        }
+        int nonPick = countWays(i + 1, amount, coins, dp);
+
+        return dp[i][amount] = pick + nonPick;  // ✅ store in cache
+    }
+
+
     public static void main(String[] args) {
         Level4 l = new Level4();
         System.out.println("Alice is winner " + l.divisorGame(8));
@@ -346,6 +375,14 @@ public class Level4 {
         int[] dp4 = new int[nums4.length + 1];
         Arrays.fill(dp4, -1);
         System.out.println("able to cut rod times: " + l.rodCut(8, nums4, dp4));
+        System.out.println("integer break with max prod: " + l.integerBreak(2));
+        int[] coins=new int[]{1,5,6,9};
+        int amount=11;
+        int[][] dp3=new int[coins.length][amount+1];
+        for (int[] arr: dp3){
+            Arrays.fill(arr,-1);
+        }
+        System.out.println("ways to : "+l.countWays(0,amount,coins,dp3));
 
 
     }
