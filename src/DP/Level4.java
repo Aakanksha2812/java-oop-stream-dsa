@@ -309,6 +309,22 @@ public class Level4 {
         return dp[i][amount] = pick + nonPick;  // ✅ store in cache
     }
 
+    int longestIncreasingSubsequence(int[] nums) {
+        int n=nums.length;
+        int[] dp=new int[n];
+        Arrays.fill(dp,1);
+        int max=0;
+        for (int i=1;i<n;i++){
+            for (int j = 0; j < i; j++) {
+                if (nums[j]<nums[i]){
+                    dp[i]=Math.max(dp[i],dp[j]+1);
+
+                }
+            }
+            max=Math.max(max,dp[i]);
+        }
+        return max;
+    }
 
     public static void main(String[] args) {
         Level4 l = new Level4();
@@ -376,13 +392,15 @@ public class Level4 {
         Arrays.fill(dp4, -1);
         System.out.println("able to cut rod times: " + l.rodCut(8, nums4, dp4));
         System.out.println("integer break with max prod: " + l.integerBreak(2));
-        int[] coins=new int[]{1,5,6,9};
-        int amount=11;
-        int[][] dp3=new int[coins.length][amount+1];
-        for (int[] arr: dp3){
-            Arrays.fill(arr,-1);
+        int[] coins = new int[]{1, 5, 6, 9};
+        int amount = 11;
+        int[][] dp3 = new int[coins.length][amount + 1];
+        for (int[] arr : dp3) {
+            Arrays.fill(arr, -1);
         }
-        System.out.println("ways to : "+l.countWays(0,amount,coins,dp3));
+        System.out.println("ways to : " + l.countWays(0, amount, coins, dp3));
+        int[] nums5=new int[]{10,9,2,5,3,7,101,18};
+        System.out.println("Longest increasing subsequnce: "+l.longestIncreasingSubsequence(nums5));
 
 
     }

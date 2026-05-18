@@ -47,20 +47,38 @@ public class DP {
             return 0;
         }
         if (i >= coins.length || amount < 0) {
-            return Integer.MAX_VALUE ;
+            return Integer.MAX_VALUE;
         }
 
         int nonPick = coinChange(i + 1, coins, amount);
         int pick = Integer.MAX_VALUE;
         if (coins[i] <= amount) {
-          int   next = coinChange(i, coins, amount - coins[i]);
-          if (next!=Integer.MAX_VALUE){
-              pick=1+next;
-          }
+            int next = coinChange(i, coins, amount - coins[i]);
+            if (next != Integer.MAX_VALUE) {
+                pick = 1 + next;
+            }
         }
         return Math.min(pick, nonPick);
     }
 
+    int minCoinChange(int i, int[] nums, int amount, int[][] dp){
+        if(amount==0){
+            return 0;
+        }
+        if (i>=nums.length || amount<0){
+            return Integer.MAX_VALUE;
+        }
+       int pick=Integer.MAX_VALUE;
+        if (nums[i]<=amount){
+             int next=minCoinChange(i,nums,amount-nums[i],dp);
+             if (next!=Integer.MAX_VALUE){
+                 pick=1+next;
+             }
+
+        }
+        int nonPick=minCoinChange(i+1,nums,amount,dp);
+        return Math.min(pick,nonPick);
+    }
 
     public static void main(String[] args) {
         DP d = new DP();
@@ -72,5 +90,11 @@ public class DP {
         System.out.println("minimum square in number: " + d.minSquareNumber(n, dp));
         int[] coins = new int[]{1, 2, 5};
         System.out.println("minimum coins required for amount: " + d.coinChange(0, coins, 11));
+        int amount=11;
+        int[][] dp1 = new int[coins.length][amount+1];
+        for (int[] arr : dp1) {
+            Arrays.fill(arr, -1);
+        }
+        System.out.println("minimum coins required for amount: "+ d.minCoinChange(0,coins,11,dp1));
     }
 }
