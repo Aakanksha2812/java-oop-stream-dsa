@@ -310,22 +310,78 @@ public class Level4 {
     }
 
     int longestIncreasingSubsequence(int[] nums) {
-        int n=nums.length;
-        int[] dp=new int[n];
-        Arrays.fill(dp,1);
-        int max=0;
-        for (int i=1;i<n;i++){
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        int max = 0;
+        for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[j]<nums[i]){
-                    dp[i]=Math.max(dp[i],dp[j]+1);
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
 
                 }
             }
-            max=Math.max(max,dp[i]);
+            max = Math.max(max, dp[i]);
         }
+        printArrayMethod(dp);
         return max;
     }
 
+    int numberOfLongestIncreasingSubsequence(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 1);
+        int max = 0;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+
+                }
+            }
+            max = Math.max(max, dp[i]);
+        }
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (dp[i] == max) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    int solve(int i,int j,int[][] matrix,int n,int m,int[][] dp){
+        if(i>=n || j>=m ||j<0){
+            return Integer.MAX_VALUE;
+        }
+        if(i==n-1 ){
+            return matrix[i][j];
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        int down=solve(i+1,j,matrix,n,m,dp);
+        int rightD=solve(i+1,j+1,matrix,n,m,dp);
+        int leftD=solve(i+1,j-1,matrix,n,m,dp);
+        return dp[i][j]=matrix[i][j]+Math.min(down,Math.min(rightD,leftD));
+    }
+    public int minFallingPathSum(int[][] matrix) {
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int[][] dp=new int[n][m];
+        for(int[] arr:dp){
+            Arrays.fill(arr,-1);
+        }
+        int max=Integer.MAX_VALUE;
+        for(int j=0;j<m;j++){
+            max=Math.min(max,solve(0,j,matrix,n,m,dp));
+        }
+        for (int[] arr:dp){
+        printArrayMethod(arr);
+            System.out.println();}
+        return max;
+
+    }
     public static void main(String[] args) {
         Level4 l = new Level4();
         System.out.println("Alice is winner " + l.divisorGame(8));
@@ -399,9 +455,16 @@ public class Level4 {
             Arrays.fill(arr, -1);
         }
         System.out.println("ways to : " + l.countWays(0, amount, coins, dp3));
-        int[] nums5=new int[]{10,9,2,5,3,7,101,18};
-        System.out.println("Longest increasing subsequnce: "+l.longestIncreasingSubsequence(nums5));
-
+        int[] nums5 = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
+        int[] nums6 = new int[]{2, 2, 2, 2};
+        System.out.println("Longest increasing subsequnce: " + l.longestIncreasingSubsequence(nums6));
+        System.out.println("number of subsequence with longest increasing subsequence:  " + l.numberOfLongestIncreasingSubsequence(nums6));
+      int[][] matrix1=new int[][]{
+              {2,1,3},
+              {6,5,4},
+              {7,8,9}
+      };
+        System.out.println("minimum failing path: "+l.minFallingPathSum(matrix1));
 
     }
 }
