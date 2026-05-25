@@ -3,6 +3,7 @@ package DP;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static DP.Level4.palindrome;
 import static String.Solution2.intToString;
 import static String.Solution2.isPresent;
 
@@ -227,8 +228,8 @@ public class StringDP {
     int lcs(String s1, String s2) {
         int n = s1.length();
         int m = s2.length();
-        int[][] dp = new int[n+1][m+1];
-        int max =dp[0][0] ;
+        int[][] dp = new int[n + 1][m + 1];
+        int max = dp[0][0];
         for (int i = n - 1; i >= 0; i--) {
             for (int j = m - 1; j >= 0; j--) {
                 if (s1.charAt(i) == s2.charAt(j)) {
@@ -240,6 +241,21 @@ public class StringDP {
             }
         }
         return max;
+    }
+
+    int countSubstrings(int i, String s) {
+        if (i >= s.length()) {
+            return 1;
+        }
+        int ans = 0;
+        for (int j = i; j < s.length(); j++) {
+            String part = s.substring(i, j + 1);
+            if (palindrome(i, j, s)) {
+                ans = 1 + countSubstrings(j + 1, s);
+            }
+
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
@@ -272,7 +288,8 @@ public class StringDP {
         String str = "aebcbda";
         System.out.println("maximum palindromic subsquence: " + d.palindromicSubsequence(str));
         System.out.println("number of character deletion from string: " + d.deletionOfExtraLPS(str));
-        System.out.println("common subsequence between str1 and str2: "+d.lcs("abcde","ace"));
+        System.out.println("common subsequence between str1 and str2: " + d.lcs("abcde", "ace"));
+        System.out.println("count palindromic substring: "+d.countSubstrings(0,"aaa"));
 
     }
 }

@@ -41,7 +41,7 @@ public class Level4 {
         return dp[n];
     }
 
-    boolean palindrome(int s, int e, String str) {
+   static boolean palindrome(int s, int e, String str) {
         if (s >= e) {
             return true;
         }
