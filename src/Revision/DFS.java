@@ -1,5 +1,8 @@
 package Revision;
 
+import static Print.PrintFunction.printArrayMethod;
+import static Print.PrintFunction.printArrayMethodChar;
+
 public class DFS {
     void island(int[][] grid, int i, int j, int n, int m) {
         if (i >= n || j >= m || i < 0 || j < 0) {
@@ -52,6 +55,43 @@ public class DFS {
         return count;
     }
 
+        void dfs(char[][] board, int i, int j, int n, int m,boolean[][] visited) {
+            if(i<0 || j<0 || i>=n || j>=m){
+                return;
+            }
+            if(i==n-1 || j==n-1 || i==m-1 || j==m-1){
+                return;
+            }
+            if(visited[i][j]){
+                return;
+            }
+            visited[i][j]=true;
+            if(board[i][j]=='O' ){
+                board[i][j]='X';
+            }
+            int[][] dir=new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+            for(int d=0;d<4;d++){
+                dfs(board,dir[d][0],dir[d][1],n,m,visited);
+            }
+        }
+
+        public void solve(char[][] board) {
+            int n = board.length;
+            int m = board[0].length;
+            boolean[][] visited=new boolean[n][m];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                //    if (i == 0 || j == 0 || i == n - 1 || j == m - 1) {
+                        if (board[i][j] == 'O') {
+                            dfs(board, i, j, n, m,visited);
+                        }
+                   // }
+                }
+            }
+            //   return board;
+
+
+    }
     public static void main(String[] args) {
         DFS d = new DFS();
         int[][] grid = new int[][]{
@@ -70,5 +110,12 @@ public class DFS {
         int m= grid1[0].length;
         boolean[][] visited=new boolean[n][m];
         System.out.println("size of island: "+d.sizeOfIsland(0,1,n,m,grid1,visited));
+      char[][] grid2=new char[][]  {{'X','X','X','X'},{'X','O','O','X'},{'X','X','O','X'},{'X','O','X','X'}};
+      d.solve(grid2);
+      for (char[] arr:grid2){
+          printArrayMethodChar(arr);
+          System.out.println();
+      }
+
     }
 }
