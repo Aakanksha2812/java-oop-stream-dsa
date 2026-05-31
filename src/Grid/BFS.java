@@ -431,29 +431,12 @@ public class BFS {
     public static void main(String[] args) {
         BFS b = new BFS();
 
-        int[][] grid = new int[][]{
-                {2, 1, 1},
-                {1, 1, 0},
-                {0, 1, 1}
-        };
-        int[][] grid4 = new int[][]{
-                {2, 1, 1},
-                {1, 1, 0},
-                {0, 1, 1},
-        };
+        int[][] grid = new int[][]{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+        int[][] grid4 = new int[][]{{2, 1, 1}, {1, 1, 0}, {0, 1, 1},};
         System.out.println(b.orangeRoatting1(grid4));
-        int[][] grid1 = new int[][]{
-                {1, 1, 0},
-                {1, 0, 1},
-                {0, 1, 1},
-                {1, 0, 0}
-        };
+        int[][] grid1 = new int[][]{{1, 1, 0}, {1, 0, 1}, {0, 1, 1}, {1, 0, 0}};
         System.out.println("number of island " + b.numberOfIslan(grid1));
-        int[][] grid2 = new int[][]{
-                {1, 0, 0},
-                {0, 1, 0},
-                {1, 1, 1},
-        };
+        int[][] grid2 = new int[][]{{1, 0, 0}, {0, 1, 0}, {1, 1, 1},};
         b.distanceZeroMatrix(grid2);
         for (int i = 0; i < grid2.length; i++) {
             for (int j = 0; j < grid2[0].length; j++) {
@@ -461,11 +444,7 @@ public class BFS {
             }
             System.out.println();
         }
-        int[][] grid3 = new int[][]{
-                {1, 0, 0},
-                {0, 1, 0},
-                {1, 1, 1},
-        };
+        int[][] grid3 = new int[][]{{1, 0, 0}, {0, 1, 0}, {1, 1, 1},};
         System.out.println("flood fill");
         b.fillColour(grid3, 1, 1, 2);
         for (int i = 0; i < grid3.length; i++) {
@@ -474,13 +453,7 @@ public class BFS {
             }
             System.out.println();
         }
-        int[][] Input = new int[][]
-                {
-                        {2147483647, -1, 0, 2147483647},
-                        {2147483647, 2147483647, 2147483647, -1},
-                        {2147483647, -1, 2147483647, -1},
-                        {0, -1, 2147483647, 2147483647}
-                };
+        int[][] Input = new int[][]{{2147483647, -1, 0, 2147483647}, {2147483647, 2147483647, 2147483647, -1}, {2147483647, -1, 2147483647, -1}, {0, -1, 2147483647, 2147483647}};
         b.shortestDistance(Input);
         for (int i = 0; i < Input.length; i++) {
             for (int j = 0; j < Input[0].length; j++) {
@@ -490,17 +463,9 @@ public class BFS {
         }
 
         System.out.println(b.multiSourceOranageRotten(grid));
-        int[][] grid5 = new int[][]{
-                {0, 0, 0},
-                {1, 1, 0},
-                {0, 0, 0},
-        };
+        int[][] grid5 = new int[][]{{0, 0, 0}, {1, 1, 0}, {0, 0, 0},};
         System.out.println(b.shortestPath(grid5, 0, 0));
-        int[][] grid6 = new int[][]{
-                {1, 0, 1},
-                {0, 0, 0},
-                {1, 0, 1}
-        };
+        int[][] grid6 = new int[][]{{1, 0, 1}, {0, 0, 0}, {1, 0, 1}};
         System.out.println(b.nearstLandCell(grid6));
         System.out.println(b.nearstLandCell2(grid6));
       /*  for (int i = 0; i < grid6.length; i++) {
@@ -509,15 +474,9 @@ public class BFS {
             }
             System.out.println();
         }*/
-        int[][] grid7 = new int[][]{
-                {1, 1, 1},
-                {1, 1, 0},
-                {1, 0, 1}
-        };
+        int[][] grid7 = new int[][]{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
         System.out.println(b.numberOfProvinces(grid7));
-        char[][] grid8 = new char[][]{
-                {'O', 'O'}, {'O', 'O'}
-        };
+        char[][] grid8 = new char[][]{{'O', 'O'}, {'O', 'O'}};
         b.solve(grid8);
         for (int i = 0; i < grid8.length; i++) {
             for (int j = 0; j < grid8[0].length; j++) {
