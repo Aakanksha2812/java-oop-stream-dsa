@@ -84,9 +84,7 @@ public class Graph {
             adj.get(u).add(v);
             adj.get(v).add(u);
         }
-        for (int i = 0; i < adj.size(); i++) {
-            System.out.println(i + " -> " + adj.get(i));
-        }
+
         distance[source] = 0;
         queue.add(source);
         while (!queue.isEmpty()) {
@@ -135,7 +133,7 @@ public class Graph {
 
             return new ArrayList<>();
         }
-        printArrayMethod(parent);
+
         ArrayList<Integer> path = new ArrayList<>();
         int curr = dest;
         while (curr != source) {
