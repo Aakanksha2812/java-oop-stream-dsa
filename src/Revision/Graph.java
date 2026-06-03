@@ -99,7 +99,7 @@ public class Graph {
         return distance;
     }
 
-    ArrayList<Integer> shortestPathToDestination(int[][] edges, int source, int dest,int n) {
+    ArrayList<Integer> shortestPathToDestination(int[][] edges, int source, int dest, int n) {
 
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
@@ -145,6 +145,40 @@ public class Graph {
         return path;
     }
 
+    boolean pathExists(int[][] grid, int n, int source, int dest) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[n];
+        if (source == dest) {
+            return true;
+        }
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] arr : grid) {
+            int u = arr[0];
+            int v = arr[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        queue.add(source);
+        visited[source] = true;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            if (node == dest) {
+                return true;
+            }
+            for (int neighbor : adj.get(node)) {
+                if (!visited[neighbor]) {
+
+                    queue.add(neighbor);
+                    visited[neighbor] = true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         Graph g = new Graph();
         int[][] grid = new int[][]{{1, 2}, {1, 3}, {2, 3}};
@@ -156,16 +190,22 @@ public class Graph {
                 {3, 4}
         };
         int[][] edges1 = new int[][]{{0, 1},
-                {0,1},
-                {0,2},
-                {1,3},
-                {1,4},
-                {2,4}};
+                {0, 1},
+                {0, 2},
+                {1, 3},
+                {1, 4},
+                {2, 4}};
         //  System.out.println("shortest path: " + g.shortestPath(edges, 0));
         int[] ans = g.shortestPathDistance(edges, 0, 5);
         printArrayMethod(ans);
         System.out.println();
-        System.out.println(g.shortestPathToDestination(edges1, 0, 4,5));
+        System.out.println(g.shortestPathToDestination(edges1, 0, 4, 5));
+        int[][] edges2 = new int[][]{
+                {0, 1},
+                {1, 2},
+                {3, 4}
+        };
+        System.out.println("path exists: " + g.pathExists(edges2, 5, 0, 4));
 
     }
 }
