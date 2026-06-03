@@ -179,6 +179,119 @@ public class Graph {
         return false;
     }
 
+    int[] shortestP(int[][] edges, int n, int source) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        Queue<Integer> queue = new LinkedList<>();
+        int[] distance = new int[n];
+        Arrays.fill(distance, -1);
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] arr : edges) {
+            int u = arr[0];
+            int v = arr[1];
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        queue.add(source);
+        distance[source] = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            for (int neighbor : adj.get(node)) {
+                if (distance[neighbor] == -1) {
+                    queue.add(neighbor);
+                    distance[neighbor] = distance[node] + 1;
+                }
+            }
+        }
+        return distance;
+    }
+
+    int gridShortestPath(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[n][m];
+        int i = 0, j = 0;
+        if (grid[i][j] == 1) {
+            return -1;
+        }
+        queue.add(new int[]{i, j, 1});
+        visited[i][j] = true;
+        int[] dx = new int[]{1, -1, 0, 0};
+        int[] dy = new int[]{0, 0, 1, -1};
+        while (!queue.isEmpty()) {
+            int[] pol = queue.poll();
+            int row = pol[0];
+            int col = pol[1];
+            int dist = pol[2];
+            for (int d = 0; d < 4; d++) {
+                int ni = row + dx[d];
+                int nj = col + dy[d];
+                if (ni >= 0 && nj >= 0 && ni < n && nj < m &&!visited[ni][nj]  && grid[ni][nj] != 1) {
+                    if (ni == n - 1 && nj == m - 1) {
+                        return dist + 1;
+                    }
+                    queue.add(new int[]{ni, nj, dist + 1});
+                    visited[ni][nj] = true;
+                }
+            }
+        }
+        return -1;
+    }
+    int gridShortestPath2(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        if (grid[0][0] == 1 || grid[n - 1][m - 1] == 1) {
+            return -1;
+        }
+
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[n][m];
+
+        queue.add(new int[]{0, 0});
+        visited[0][0] = true;
+
+        int distance = 0;
+
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
+
+        while (!queue.isEmpty()) {
+
+            int size = queue.size();
+
+            for (int k = 0; k < size; k++) {
+
+                int[] curr = queue.poll();
+                int row = curr[0];
+                int col = curr[1];
+
+                if (row == n - 1 && col == m - 1) {
+                    return distance;
+                }
+
+                for (int d = 0; d < 4; d++) {
+                    int nr = row + dx[d];
+                    int nc = col + dy[d];
+
+                    if (nr >= 0 && nc >= 0 &&
+                            nr < n && nc < m &&
+                            !visited[nr][nc] &&
+                            grid[nr][nc] == 0) {
+
+                        visited[nr][nc] = true;
+                        queue.add(new int[]{nr, nc});
+                    }
+                }
+            }
+
+            distance++;
+        }
+
+        return -1;
+    }
     public static void main(String[] args) {
         Graph g = new Graph();
         int[][] grid = new int[][]{{1, 2}, {1, 3}, {2, 3}};
@@ -189,7 +302,7 @@ public class Graph {
                 {2, 3},
                 {3, 4}
         };
-        int[][] edges1 = new int[][]{{0, 1},
+        int[][] edges1 = new int[][]{
                 {0, 1},
                 {0, 2},
                 {1, 3},
@@ -206,6 +319,13 @@ public class Graph {
                 {3, 4}
         };
         System.out.println("path exists: " + g.pathExists(edges2, 5, 0, 4));
-
+        int[] ans2 = g.shortestP(edges1, 5, 0);
+        printArrayMethod(ans2);
+        System.out.println();
+        int[][] grid1 = new int[][]{
+                {0, 0, 0},
+                {1, 1, 0},
+                {0, 0, 0}};
+        System.out.println("minimum shortest path: "+g.gridShortestPath(grid1));
     }
 }
