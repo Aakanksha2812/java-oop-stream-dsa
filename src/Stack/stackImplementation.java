@@ -70,13 +70,35 @@ public class stackImplementation {
         st.push(peek);
     }
 
-    void reverseStack(Stack<Integer> st, Stack<Integer> d) {
-        if (st.size() == 1) {
-            d.push(st.pop());
+    void reverseStack(Stack<Integer> st) {
+        while (!st.isEmpty()) {
+
+            int peek = st.pop();
+            insertAtBottom(st, peek);
+        }
+    }
+
+    void sortStack(Stack<Integer> st, Stack<Integer> temp) {
+
+        if (st.isEmpty()) {
             return;
         }
-        d.push(st.pop());
-        reverseStack(st, d);
+
+        temp.push(st.pop());
+
+        while (!st.isEmpty()) {
+            int pop = st.pop();
+
+            while (!temp.isEmpty() && pop < temp.peek()) {
+                st.push(temp.pop());
+            }
+
+            temp.push(pop);
+        }
+
+        while (!temp.isEmpty()) {
+            st.push(temp.pop());
+        }
 
     }
 
@@ -100,6 +122,7 @@ public class stackImplementation {
             i++;
         }
         s.printStack(stack);
+        System.out.println();
         String parentheses = "(()()";
         System.out.println("is parentheses balanced: " + s.isBalanceParentheses(parentheses));
         Stack<Integer> st = new Stack<>();
@@ -112,8 +135,16 @@ public class stackImplementation {
         st.push(10);
         st.push(20);
         st.push(30);
-        Stack<Integer> d=new Stack<>();
-        s.reverseStack(st,d);
+        Stack<Integer> d = new Stack<>();
+        s.reverseStack(st);
+        s.printStack(st);
+        d.push(10);
+        d.push(30);
+        d.push(5);
+        d.push(20);
+        Stack<Integer> temp = new Stack<>();
+        s.sortStack(d, temp);
         s.printStack(d);
+
     }
 }
