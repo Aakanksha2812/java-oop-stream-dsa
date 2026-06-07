@@ -230,8 +230,8 @@ public class BFS {
                 {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, -1},
                 {Integer.MAX_VALUE, -1, Integer.MAX_VALUE, 0},
                 {0, -1, Integer.MAX_VALUE, Integer.MAX_VALUE}};
-        int[][] ans3=b.nearestGate(grid3);
-        for (int[] arr:ans3){
+        int[][] ans3 = b.nearestGate(grid3);
+        for (int[] arr : ans3) {
             printArrayMethod(arr);
             System.out.println();
         }
