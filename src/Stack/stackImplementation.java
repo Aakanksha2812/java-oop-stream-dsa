@@ -40,13 +40,8 @@ public class stackImplementation {
         return str.toString();
     }
 
-    void printStack(int[] arr) {
-        Stack<Integer> stack = new Stack<>();
-        int i = 0;
-        while (i < arr.length) {
-            stack.push(arr[i]);
-            i++;
-        }
+    void printStack(Stack<Integer> stack) {
+
         while (!stack.isEmpty()) {
             System.out.print(stack.pop() + " ");
         }
@@ -64,9 +59,27 @@ public class stackImplementation {
         }
         return stack.isEmpty();
     }
-    void insertAtBottom(Stack<Integer> st, int x){
+
+    void insertAtBottom(Stack<Integer> st, int x) {
+        if (st.isEmpty()) {
+            st.push(x);
+            return;
+        }
+        int peek = st.pop();
+        insertAtBottom(st, x);
+        st.push(peek);
+    }
+
+    void reverseStack(Stack<Integer> st, Stack<Integer> d) {
+        if (st.size() == 1) {
+            d.push(st.pop());
+            return;
+        }
+        d.push(st.pop());
+        reverseStack(st, d);
 
     }
+
     public static void main(String[] args) {
         stackImplementation s = new stackImplementation(6);
         s.push(1);
@@ -78,10 +91,29 @@ public class stackImplementation {
         System.out.println("peek element is: " + s.peek());
         System.out.println("is stack empty: " + s.isEmpty());
         System.out.println("reverse String is: " + s.reverseString("AAKANKSHA"));
-       System.out.println();
+        System.out.println();
         int[] arr = new int[]{1, 2, 3, 4, 5};
-        s.printStack(arr);
+        int i = 1;
+        Stack<Integer> stack = new Stack<>();
+        while (i <= 5) {
+            stack.push(i);
+            i++;
+        }
+        s.printStack(stack);
         String parentheses = "(()()";
-        System.out.println("is parentheses balanced: "+s.isBalanceParentheses(parentheses));
+        System.out.println("is parentheses balanced: " + s.isBalanceParentheses(parentheses));
+        Stack<Integer> st = new Stack<>();
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        s.insertAtBottom(st, 5);
+        s.printStack(st);
+        System.out.println();
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        Stack<Integer> d=new Stack<>();
+        s.reverseStack(st,d);
+        s.printStack(d);
     }
 }
