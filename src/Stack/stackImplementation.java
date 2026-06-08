@@ -51,10 +51,17 @@ public class stackImplementation {
     boolean isBalanceParentheses(String s) {
         Stack<Character> stack = new Stack<>();
         for (Character c : s.toCharArray()) {
-            if (c == '(') {
+            if (c == '(' || c == '[' || c == '{') {
                 stack.push(c);
             } else {
-                stack.pop();
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                if ((stack.peek() == '(' && c == ')') || (stack.peek() == '[' && c == ']') || (stack.peek() == '{' && c == '}')) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
             }
         }
         return stack.isEmpty();
@@ -71,11 +78,14 @@ public class stackImplementation {
     }
 
     void reverseStack(Stack<Integer> st) {
-        while (!st.isEmpty()) {
-
-            int peek = st.pop();
-            insertAtBottom(st, peek);
+        if (!st.isEmpty()) {
+            return;
         }
+
+        int peek = st.pop();
+        reverseStack(st);
+        insertAtBottom(st, peek);
+
     }
 
     void sortStack(Stack<Integer> st, Stack<Integer> temp) {
@@ -123,7 +133,7 @@ public class stackImplementation {
         }
         s.printStack(stack);
         System.out.println();
-        String parentheses = "(()()";
+        String parentheses = "([)]";
         System.out.println("is parentheses balanced: " + s.isBalanceParentheses(parentheses));
         Stack<Integer> st = new Stack<>();
         st.push(10);
