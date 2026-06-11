@@ -52,7 +52,30 @@ public class Level1 {
         }
         return ans;
     }
+    public int[] nextGreaterElements(int[] nums) {
+        Stack<Integer> st = new Stack<>();
+        int n = nums.length;
+        int[] temp = new int[n];
 
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && st.peek() <= nums[i]) {
+                st.pop();
+            }
+            if (st.isEmpty()) {
+                temp[i] = -1;
+            } else {
+                temp[i] = st.peek();
+            }
+            st.push(nums[i]);
+        }
+        while (!st.isEmpty() && st.peek() <= nums[n-1]) {
+           st.pop();
+        }
+        if(!st.isEmpty()){
+            temp[n-1]=st.peek();
+        }
+        return temp;
+    }
     public int calPoints(String[] operations) {
         Stack<Integer> st = new Stack<>();
         int ans = 0;
@@ -79,6 +102,23 @@ public class Level1 {
         }
         return ans;
     }
+    public int[] finalPrices(int[] prices) {
+        Stack<Integer> st = new Stack<>();
+        int n = prices.length;
+        int[] ans = new int[n];
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && st.peek() > prices[i]) {
+                st.pop();
+            }
+            if (st.empty()) {
+                ans[i] = prices[i];
+            } else {
+                ans[i] = prices[i] - st.peek();
+            }
+            st.push(prices[i]);
+        }
+        return ans;
+    }
     public static void main(String[] args) {
         Level1 l = new Level1();
         int[] arr = new int[]{1, 3, 2, 4};
@@ -92,5 +132,12 @@ public class Level1 {
         System.out.println();
         String[] ops = new String[]{"5", "-2", "4", "C", "D", "9", "+", "+"};
         System.out.println("final ans of opration: " + l.calPoints(ops));
+        int[] num=new int[]{1,2,1};
+        int[] ans3=l.nextGreaterElements(num);
+        printArrayMethod(ans3);
+        System.out.println();
+        int[] prices=new int[]{8,7,4,2,8,1,7,7,10,1};
+        int[] ans4=l.finalPrices(prices);
+        printArrayMethod(ans4);
     }
 }
