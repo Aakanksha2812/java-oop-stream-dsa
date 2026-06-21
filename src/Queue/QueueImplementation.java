@@ -1,19 +1,24 @@
 package Queue;
 
+import java.util.Stack;
+
 public class QueueImplementation {
 
     int capacity;
     int front;
     int rear;
     int[] arr;
+    Stack<Integer> st1;
+    Stack<Integer> st2;
 
 
     QueueImplementation(int size) {
         capacity = size;
         arr = new int[capacity];
         front = 0;
-
         rear = -1;
+        st1 = new Stack<>();
+        st2 = new Stack<>();
     }
 
     void enqueue(int x) {
@@ -50,8 +55,55 @@ public class QueueImplementation {
     }
 
     void print() {
-        for (int i = front; i <= rear ; i++) {
+        for (int i = front; i <= rear; i++) {
             System.out.println(arr[i]);
+        }
+    }
+
+    void enqueueStack(int x) {
+        st1.push(x);
+    }
+
+    int dequeueStack() {
+        while (!st1.isEmpty()) {
+            st2.push(st1.pop());
+        }
+        int val = st2.pop();
+        while (!st2.isEmpty()) {
+            st1.push(st2.pop());
+        }
+        return val;
+    }
+
+    int peekStack() {
+
+        while (!st1.isEmpty()) {
+            st2.push(st1.pop());
+        }
+
+        int val = st2.peek();
+
+        while (!st2.isEmpty()) {
+            st1.push(st2.pop());
+        }
+
+        return val;
+    }
+
+    boolean isEmptyQueue() {
+        return st1.isEmpty();
+    }
+
+    void printQueueUsingStack() {
+
+        while (!st1.isEmpty()) {
+            st2.push(st1.pop());
+        }
+
+        while (!st2.isEmpty()) {
+            int val = st2.pop();
+            System.out.println(val);
+            st1.push(val); 
         }
     }
 
@@ -64,5 +116,11 @@ public class QueueImplementation {
         System.out.println(q.dequeue());
         System.out.println(q.peek());
         q.print();
+        q.enqueueStack(10);
+        q.enqueueStack(20);
+        q.enqueueStack(30);
+        q.enqueueStack(40);
+        q.dequeueStack();
+        q.printQueueUsingStack();
     }
 }

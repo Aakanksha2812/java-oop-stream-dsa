@@ -80,8 +80,51 @@ public class DP {
         return Math.min(pick, nonPick);
     }
 
+    boolean equalPartition(int i, int[] nums, int sum, int[][] dp) {
+        if (i == nums.length) {
+            if (sum == 0) {
+                return true;
+            }
+            return false;
+        }
+        if (dp[i][sum] != -1) {
+            return dp[i][sum] == 1;
+        }
+        boolean pick = false;
+        if (nums[i] <= sum) {
+            pick = equalPartition(i + 1, nums, sum - nums[i], dp);
+        }
+        boolean noPick = equalPartition(i + 1, nums, sum, dp);
+        boolean ans = pick || noPick;
+        dp[i][sum] = ans ? 1 : 0;
+        return ans;
+    }
+    int solve(int i, int j, int n, int m, int[][] grid, int[][] dp) {
+        if (i >= n || j >= m) {
+            return 0;
+        }
+        if (i == n - 1 && j == m - 1) {
+            return grid[i][j];
+        }
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        int down = grid[i][j] + solve(i + 1, j, n, m, grid, dp);
+        int right = grid[i][j] + solve(i, j + 1, n, m, grid, dp);
+        dp[i][j] = Math.min(down, right);
+        return dp[i][j];
+    }
 
+    public int minPathSum(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
 
+        int[][] dp = new int[n][m];
+        for (int[] arr : dp) {
+            Arrays.fill(arr, -1);
+        }
+        return solve(0, 0, n, m, grid, dp);
+    }
     public static void main(String[] args) {
         DP d = new DP();
         int[] nums = new int[]{2, 1, 1, 2};
@@ -98,6 +141,30 @@ public class DP {
             Arrays.fill(arr, -1);
         }
         System.out.println("minimum coins required for amount: " + d.minCoinChange(0, coins, 11, dp1));
-       // System.out.println("steps to reach n: "+d.stepsToReach(4));
+        // System.out.println("steps to reach n: "+d.stepsToReach(4));
+        int[] nums1 = new int[]{1, 5, 11, 5};
+
+        int sum = 0;
+        for (int i : nums1) {
+            sum += i;
+        }
+
+        if (sum % 2 != 0) {
+            System.out.println("equal partition is not possible ");
+        }
+        sum = sum / 2;
+        int[][] dp2 = new int[nums1.length][sum + 1];
+        for (int[] arr : dp2) {
+            Arrays.fill(arr, -1);
+        }
+
+        System.out.println("equal partition is not possible " + d.equalPartition(0, nums1, sum, dp2));
+        int[][] grid=new int[][]{
+                {1,3,1},
+                {1,5,1},
+                {4,2,1}
+        };
+        System.out.println(d.minPathSum(grid));
+
     }
 }

@@ -365,6 +365,7 @@ public class Level3Question {
         System.out.println(list4);
         ArrayList<ArrayList<Integer>> store1 = new ArrayList<>();
         ArrayList<Integer> list5 = new ArrayList<>();
+        System.out.println("valid segment");
         l.validSegmenet(0, "101", list5, store1);
         System.out.println(store1);
         System.out.println((char) (5 + '0'));

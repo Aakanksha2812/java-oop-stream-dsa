@@ -9,7 +9,7 @@ public class Recursion {
     boolean validSumSequence(int i, int[] nums, int target) {
         if (nums.length == i) {
             if (target == 0) {
-                // System.out.println();
+
                 return true;
             }
             return false;
@@ -28,7 +28,7 @@ public class Recursion {
     int countSumSubsequnces(int i, int[] nums, int target) {
         if (nums.length == i) {
             if (target == 0) {
-                // System.out.println();
+
                 return 1;
             }
             return 0;
@@ -317,10 +317,10 @@ public class Recursion {
         }
 
         grid[i][j] = 0;
-        int[] dx={-1,0,1,0};
-        int[] dy={0,1,0,-1};
-        for(int d=0;d<4;d++){
-            island(grid,i+dx[d],j+dy[d],n,m);
+        int[] dx = {-1, 0, 1, 0};
+        int[] dy = {0, 1, 0, -1};
+        for (int d = 0; d < 4; d++) {
+            island(grid, i + dx[d], j + dy[d], n, m);
         }
        /* island(grid, i + 1, j, n, m);
         island(grid, i, j + 1, n, m);
@@ -366,7 +366,7 @@ public class Recursion {
             for (int j = 0; j < m; j++) {
                 if (grid[i][j] == 1) {
                     int size = sizeOfIsland(grid, i, j, n, m);
-                  //  System.out.println(size);
+                    //  System.out.println(size);
                     if (max < size) {
                         max = size;
                     }
