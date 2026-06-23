@@ -32,6 +32,7 @@ public class Basic {
         return nums.stream().filter(n -> n > 2).map(n -> n * n).collect(Collectors.toCollection(ArrayList::new));
     }
 
+
     public static void main(String[] args) {
         Basic b = new Basic();
         b.evenNumber();
