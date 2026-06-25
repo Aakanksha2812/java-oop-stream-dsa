@@ -70,6 +70,6 @@ public class Basic {
         System.out.println("group by same length: " + b.sameWordLength());
         System.out.println("Count Same intial character: " + b.sameCharacterCount());
         System.out.println("convert nested list to flat list: " + b.singleList());
-        System.out.println("join by comma: "+b.joinByComma());
+        System.out.println("join by comma: " + b.joinByComma());
     }
 }
