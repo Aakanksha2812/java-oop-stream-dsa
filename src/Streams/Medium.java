@@ -1,9 +1,6 @@
 package Streams;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Medium {
@@ -18,9 +15,40 @@ public class Medium {
         return words.stream().filter(s -> s.length() > 3).distinct().sorted().collect(Collectors.toCollection(ArrayList::new));
     }
 
+    int sumOfSquareOdd() {
+        List<Integer> nums = List.of(1, 2, 3, 4, 5);
+        return nums.stream().filter(n -> n % 2 != 0).map(n -> n * n).reduce(0, Integer::sum);
+    }
+
+    Map<String, Long> deptDetails() {
+        record Employee(String name, String department) {
+        }
+
+        List<Employee> employees = List.of(
+                new Employee("Alice", "Engineering"),
+                new Employee("Bob", "HR"),
+                new Employee("Charlie", "Engineering"),
+                new Employee("Diana", "HR"),
+                new Employee("Eve", "Engineering")
+        );
+        return employees.stream().collect(Collectors.groupingBy(Employee::department, Collectors.counting()));
+    }
+
+    ArrayList<String> uniqueWordFromSentences() {
+        List<String> sentences = List.of(
+                "hello world",
+                "world of java",
+                "java is great"
+        );
+        return sentences.stream().flatMap(s->Arrays.stream(s.split(" "))).distinct().collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public static void main(String[] args) {
         Medium m = new Medium();
         System.out.println("maximum number in list: " + m.maxNumber());
         System.out.println("List of length of word greater than three: " + m.lengthGreaterThree());
+        System.out.println("sum of square of odd number: " + m.sumOfSquareOdd());
+        System.out.println("Department with count: " + m.deptDetails());
+        System.out.println("unique word from List of sentences: "+m.uniqueWordFromSentences());
     }
 }
