@@ -50,9 +50,10 @@ public class Hard {
                 new Employee("Diana", "HR", 65000),
                 new Employee("Eve", "Engineering", 85000)
         );
-// Output: {Engineering=90000.0, HR=62500.0}
         return employees.stream().collect(Collectors.groupingBy(Employee::department, Collectors.averagingInt(Employee::salary)));
     }
+
+
 
     public static void main(String[] args) {
         Hard h = new Hard();
