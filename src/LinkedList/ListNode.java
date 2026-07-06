@@ -35,51 +35,79 @@ public class ListNode {
 
     ListNode insertAtEnd(ListNode head, int val) {
         ListNode newNode = new ListNode(val);
+
+
+        if (head == null) {
+            return newNode;
+        }
+
         ListNode temp = head;
-        while (temp != null && temp.next != null) {
+
+        while (temp.next != null) {
             temp = temp.next;
         }
+
         temp.next = newNode;
+
         return head;
     }
 
     ListNode insertAtPosition(ListNode head, int val, int position) {
+
         ListNode newNode = new ListNode(val);
+
+
+        if (head == null) {
+            if (position == 0) {
+                return newNode;
+            }
+            return null;
+        }
+
+
         if (position == 0) {
             newNode.next = head;
-            head = newNode;
-            return head;
+            return newNode;
         }
+
         ListNode temp = head;
         int count = 0;
+
+
         while (temp != null && count < position - 1) {
             temp = temp.next;
             count++;
         }
+
+
         if (temp == null) {
             return head;
         }
+
         newNode.next = temp.next;
         temp.next = newNode;
+
         return head;
     }
 
     ListNode deleteAtBeginning(ListNode head) {
-        head = head.next;
-        return head;
+        if (head == null) {
+            return null;
+        }
+        return head.next;
     }
 
     ListNode deleteAtEnd(ListNode head) {
-        if (head==null || head.next==null){
+        if (head == null || head.next == null) {
             return null;
         }
         ListNode temp = head;
-        ListNode prev=null;
+        ListNode prev = null;
         while (temp.next != null) {
-            prev=temp;
+            prev = temp;
             temp = temp.next;
         }
-        prev.next=null;
+        prev.next = null;
         return head;
     }
 
@@ -99,7 +127,7 @@ public class ListNode {
         l1 = l1.insertAtPosition(l1, 9, 0);
         l1 = l1.insertAtPosition(l1, 10, 10);
         l1 = l1.deleteAtBeginning(l1);
-        l1=l1.deleteAtEnd(l1);
+        l1 = l1.deleteAtEnd(l1);
         l1.printLL();
 
     }
