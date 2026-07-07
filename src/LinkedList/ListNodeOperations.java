@@ -65,15 +65,17 @@ public class ListNodeOperations {
     public ListNode detectCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        ListNode ptr = head;
+
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            ptr = ptr.next;
             if (slow == fast) {
-                if (ptr == slow) {
-                    return slow;
+                ListNode ptr=head;
+                while (ptr != slow) {
+                    ptr=ptr.next;
+                    slow=slow.next;
                 }
+                return slow;
             }
         }
         return null;
