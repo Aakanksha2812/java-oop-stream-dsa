@@ -1,7 +1,6 @@
 package LinkedList;
 
-import java.awt.*;
-import java.util.List;
+
 
 public class ListNode {
 
@@ -112,7 +111,7 @@ public class ListNode {
     }
 
     ListNode deleteAtPosition(ListNode head, int pos) {
-        if (head == null || head.next == null) {
+        if (head == null) {
             return null;
         }
         if (pos == 0) {
@@ -125,6 +124,9 @@ public class ListNode {
 
             temp = temp.next;
             count++;
+        }
+        if (temp == null || temp.next == null) {
+            return head;
         }
         temp.next = temp.next.next;
         return head;
