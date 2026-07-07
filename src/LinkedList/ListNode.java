@@ -111,6 +111,25 @@ public class ListNode {
         return head;
     }
 
+    ListNode deleteAtPosition(ListNode head, int pos) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        if (pos == 0) {
+            return head.next;
+        }
+        int count = 0;
+        ListNode temp = head;
+
+        while (temp != null && count < pos - 1) {
+
+            temp = temp.next;
+            count++;
+        }
+        temp.next = temp.next.next;
+        return head;
+    }
+
     public static void main(String[] args) {
         ListNode l1 = new ListNode(1);
         ListNode l2 = new ListNode(2);
@@ -128,6 +147,7 @@ public class ListNode {
         l1 = l1.insertAtPosition(l1, 10, 10);
         l1 = l1.deleteAtBeginning(l1);
         l1 = l1.deleteAtEnd(l1);
+        l1 = l1.deleteAtPosition(l1, 2);
         l1.printLL();
 
     }
