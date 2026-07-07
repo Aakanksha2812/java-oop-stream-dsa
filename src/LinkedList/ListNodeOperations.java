@@ -35,7 +35,48 @@ public class ListNodeOperations {
             count++;
             temp = temp.next;
         }
-       return temp;
+        return temp;
+    }
+
+    public ListNode middleNodeSlowFastPointer(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode ptr = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            ptr = ptr.next;
+            if (slow == fast) {
+                if (ptr == slow) {
+                    return slow;
+                }
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
@@ -44,15 +85,19 @@ public class ListNodeOperations {
         ListNode l3 = new ListNode(3);
         ListNode l4 = new ListNode(4);
         ListNode l5 = new ListNode(5);
-      //  ListNode l6 = new ListNode(6);
+        //  ListNode l6 = new ListNode(6);
         l1.next = l2;
         l2.next = l3;
         l3.next = l4;
         l4.next = l5;
-      //  l5.next=l6;
+        l5.next = l2;
+        //  l5.next=l6;
         ListNodeOperations op = new ListNodeOperations();
-       // l1 = op.reverse(l1);
-        l1=op.middleNode(l1);
-        l1.printLL();
+        // l1 = op.reverse(l1);
+        //   l1 = op.middleNode(l1);
+        // l1 = op.middleNodeSlowFastPointer(l1);
+        System.out.println("Linked List Contain cycle: " + op.hasCycle(l1));
+        System.out.println("cycle detected at : " + op.detectCycle(l1).val);
+        //  l1.printLL();
     }
 }
