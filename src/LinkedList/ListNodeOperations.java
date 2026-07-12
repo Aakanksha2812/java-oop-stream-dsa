@@ -196,6 +196,7 @@ public class ListNodeOperations {
         l8.next = l9;
         //  l9.next=l10;
         l7 = op.deleteDuplicates(l7);
-        l7.printLL();
+        System.out.println("middle node: "+ op.middleNodeSlowFastPointer(l1).val);
+       // l7.printLL();
     }
 }
