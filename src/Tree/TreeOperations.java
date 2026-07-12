@@ -1,14 +1,33 @@
 package Tree;
 
 public class TreeOperations {
-    void preOrder(TreeNode root){
-        if(root==null){
+    void preOrder(TreeNode root) {
+        if (root == null) {
             return;
         }
-        System.out.println(root.val+" ");
+        System.out.print(root.val + " ");
         preOrder(root.left);
         preOrder(root.right);
     }
+
+    void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+
+    void postOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.val + " ");
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         TreeNode leftNode = new TreeNode(2);
@@ -25,10 +44,16 @@ public class TreeOperations {
         leftNode.right = node2;
         rightNode.left = node3;
         rightNode.right = node4;
-        node1.left=node5;
-        node1.right=node6;
-        TreeOperations tree=new TreeOperations();
+        node1.left = node5;
+        node1.right = node6;
+        TreeOperations tree = new TreeOperations();
+        System.out.println("preOrder Travesal ");
         tree.preOrder(root);
-
+        System.out.println();
+        System.out.println("inOrder Travesal ");
+        tree.inOrder(root);
+        System.out.println();
+        System.out.println("postOrder Travesal ");
+        tree.postOrder(root);
     }
 }
