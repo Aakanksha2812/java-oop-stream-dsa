@@ -1,5 +1,8 @@
 package Tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TreeOperations {
     void preOrder(TreeNode root) {
         if (root == null) {
@@ -26,6 +29,27 @@ public class TreeOperations {
         postOrder(root.left);
         postOrder(root.right);
         System.out.print(root.val + " ");
+    }
+
+    void levelOrder(TreeNode root) {
+
+        if (root == null) {
+            return;
+        }
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            TreeNode peek = q.poll();
+            System.out.print(peek.val+" ");
+            if (peek.left != null) {
+                q.add(peek.left);
+            }
+            if (peek.right != null) {
+                q.add(peek.right);
+            }
+
+        }
     }
 
     public static void main(String[] args) {
@@ -55,5 +79,8 @@ public class TreeOperations {
         System.out.println();
         System.out.println("postOrder Travesal ");
         tree.postOrder(root);
+        System.out.println();
+        System.out.println("level order Travesal ");
+        tree.levelOrder(root);
     }
 }
