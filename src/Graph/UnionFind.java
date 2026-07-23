@@ -29,10 +29,7 @@ class UnionFind {
     }
 
     boolean areConnected(int node1, int node2) {
-        if (parent[node1] == parent[node2]) {
-            return true;
-        }
-        return false;
+        return find(node1)==find(node2);
 
     }
 
