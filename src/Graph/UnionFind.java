@@ -29,19 +29,40 @@ class UnionFind {
     }
 
     boolean areConnected(int node1, int node2) {
-        return find(node1)==find(node2);
+        return find(node1) == find(node2);
 
+    }
+
+    boolean hasCycle(int n, int[][] edges) {
+        for (int[] arr : edges) {
+           int u=arr[0];
+           int v=arr[1];
+           if (find(u)==find(v)){
+               return true;
+           }
+           union(u,v);
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         UnionFind uf = new UnionFind(5);
-        uf.union(0, 1);
+     /*   uf.union(0, 1);
         uf.union(1, 2);
         System.out.println("parent of node " + uf.find(0));
         System.out.println("parent of node " + uf.find(1));
         System.out.println("parent of node " + uf.find(2));
         System.out.println("is node 0 and 1 connected " + uf.areConnected(0, 1));
         System.out.println("is node 1 and 2 connected " + uf.areConnected(1, 2));
-        System.out.println("is node 2 and 3 connected " + uf.areConnected(2, 3));
+        System.out.println("is node 2 and 3 connected " + uf.areConnected(2, 3));*/
+        int n = 5;
+
+        int[][] edges = {
+                {0, 1},
+                {1, 2},
+                {2, 3},
+                {3, 0}
+        };
+        System.out.println("graph contain cycle "+uf.hasCycle(n,edges));
     }
 }
